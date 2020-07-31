@@ -11,8 +11,7 @@ recognition.onstart = function () {
 }
 
 recognition.onspeechend = function () {
-    console.log('You were quiet for a while so voice recognition turned itself off.');
-    document.getElementById('instructions').innerHTML = 'You were quiet for a while so voice recognition turned itself off';
+    document.getElementById('instructions').innerHTML = '<strong>Voice recognition deactivated</strong>';
 }
 
 recognition.onresult = function (event) {
@@ -50,22 +49,14 @@ function saveNote() {
     location.reload()
 }
 
-function fun(text) {
-    var speech = new SpeechSynthesisUtterance();
-    speech.text = text;
-    if (text.includes('time'))
-        speech.text = 'It is ' + new Date().getHours() + " " + new Date().getMinutes() + " right now";
-    else if (text.includes('my birthday'))
-        speech.text = 'Do you think you\'re famous! How the heck would I know your birthday!';
-    else if (text.includes('love me'))
-        speech.text = 'Of course, not! You piece of junk!';
-    window.speechSynthesis.speak(speech);
-}
-
 var date = document.getElementById('date');
 
 function myListen(key) {
     read(localStorage.getItem(key))
+}
+
+function stop() {
+    recognition.stop();
 }
 
 
