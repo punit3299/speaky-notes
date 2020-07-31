@@ -5,18 +5,19 @@ const recognition = new SpeechRecognition();
 var text = ''
 recognition.lang = 'en-IN'
 recognition.continuous = true;
- 
+
 recognition.onstart = function () {
-    document.getElementById('instructions').innerHTML="<strong>Voice recognition activated</strong>. Try speaking into the microphone.";
+    document.getElementById('instructions').innerHTML = "<strong>Voice recognition activated</strong>. Try speaking into the microphone.";
 }
 
 recognition.onspeechend = function () {
     console.log('You were quiet for a while so voice recognition turned itself off.');
+    document.getElementById('instructions').innerHTML='You were quiet for a while so voice recognition turned itself off';
 }
 
 recognition.onresult = function (event) {
     transcript = event.results[event.resultIndex][0].transcript;
-    console.log(text);
+
     // Add the current transcript to the contents of our Note.
     // There is a weird bug on mobile, where everything is repeated twice.
     // There is no official solution so far so we have to handle an edge case.
@@ -26,8 +27,8 @@ recognition.onresult = function (event) {
         text += transcript;
         document.getElementById('result').innerHTML = text;
     }
-  
-    read(text);
+
+    read(transcript);
 }
 
 function read(text) {
@@ -62,9 +63,9 @@ function fun(text) {
     window.speechSynthesis.speak(speech);
 }
 
-var date=document.getElementById('date');
+var date = document.getElementById('date');
 
-function myListen(key){
+function myListen(key) {
     read(localStorage.getItem(key))
 }
 
