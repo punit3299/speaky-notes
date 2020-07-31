@@ -12,7 +12,7 @@ recognition.onstart = function () {
 
 recognition.onspeechend = function () {
     console.log('You were quiet for a while so voice recognition turned itself off.');
-    document.getElementById('instructions').innerHTML='You were quiet for a while so voice recognition turned itself off';
+    document.getElementById('instructions').innerHTML = 'You were quiet for a while so voice recognition turned itself off';
 }
 
 recognition.onresult = function (event) {
@@ -24,7 +24,7 @@ recognition.onresult = function (event) {
     var mobileRepeatBug = (event.resultIndex == 1 && transcript == event.results[0][0].transcript);
 
     if (!mobileRepeatBug) {
-        text += transcript;
+        text = text + ' ' + transcript;
         document.getElementById('result').innerHTML = text;
         read(transcript);
     }
