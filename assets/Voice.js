@@ -15,9 +15,18 @@ recognition.onspeechend = function () {
 }
 
 recognition.onresult = function (event) {
-    text += event.results[event.resultIndex][0].transcript;
+    transcript = event.results[event.resultIndex][0].transcript;
     console.log(text);
-    document.getElementById('result').innerHTML = text;
+    // Add the current transcript to the contents of our Note.
+    // There is a weird bug on mobile, where everything is repeated twice.
+    // There is no official solution so far so we have to handle an edge case.
+    var mobileRepeatBug = (event.resultIndex == 1 && transcript == event.results[0][0].transcript);
+
+    if (!mobileRepeatBug) {
+        text += transcript;
+        document.getElementById('result').innerHTML = text;
+    }
+  
     read(text);
 }
 
