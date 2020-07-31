@@ -7,9 +7,9 @@ recognition.lang = 'en-IN'
 recognition.continuous = true;
  
 recognition.onstart = function () {
-    var speech = new SpeechSynthesisUtterance();
-    speech.text = 'Voice recognition activated.'
-    window.speechSynthesis.speak(speech);
+    // var speech = new SpeechSynthesisUtterance();
+    // speech.text = 'Voice recognition activated.'
+    // window.speechSynthesis.speak(speech);
     document.getElementById('instructions').innerHTML="<strong>Voice recognition activated</strong>. Try speaking into the microphone.";
 }
 
