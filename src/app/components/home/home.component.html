@@ -1,0 +1,121 @@
+<!-- header -->
+<header class="text-gray-700 body-font shadow-lg">
+    <div class="container mx-auto flex flex-wrap p-4 flex-col md:flex-row items-center">
+        <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" routerLink="/">
+            <!-- <i class="fa fa-microphone" aria-hidden="true"></i>&nbsp; -->
+            <img src="assets/logo.jpg" class="w-6 h-6">
+            <span class="ml-2 text-xl">
+                <span>Speaky</span> <span class="text-red-600"> Notes</span>
+            </span>
+        </a>
+        <nav class="md:ml-auto flex flex-wrap items-center  justify-center" id="nav">
+            <a class="mr-5 hover:text-gray-900 hover:opacity-75 hover:text-red-700 font-bold" routerLink="/">Home</a>
+            <a class="mr-5 hover:text-gray-900 hover:opacity-75 hover:text-red-700 font-bold" href="/#mynotes">My
+                Notes</a>
+        </nav>
+    </div>
+</header>
+
+<!-- body -->
+<section class="text-gray-700 body-font relative">
+    <div class="container px-5 py-16 mx-auto">
+        <div class="text-center mb-8">
+            <h1
+                class="md:text-3xl text-xl font-medium title-font text-gray-900 mb-2 cursor-pointer transform hover:scale-105">
+                Speech Recognition Notes App</h1>
+            <p class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto">A tiny app that allows you to make notes by
+                recording your voice.</p>
+            <div class="flex mt-6 justify-center">
+                <div class="w-16 h-1 rounded-full bg-red-600 inline-flex"></div>
+            </div>
+        </div>
+        <div class="lg:w-1/2 md:w-2/3 mx-auto">
+            <div class="flex flex-wrap -m-2">
+                <div class="p-2 w-full">
+                    <textarea
+                        class="w-full rounded border border-gray-400 focus:outline-none h-48 focus:border-red-400 text-base px-4 py-2 resize-none block"
+                        placeholder="Add New Note" id="result"></textarea>
+                </div>
+                <div class="mx-auto my-2">
+                    <div class="flex justify-center">
+                        <button
+                            class="inline-flex text-white bg-red-600 border-0 py-1 px-4 focus:outline-none hover:bg-red-700 rounded text-sm"
+                            id="btn" onclick='recognition.start()'><i class="fa fa-microphone py-1"
+                                aria-hidden="true"></i>&nbsp; Start Recognition</button>
+                        <button
+                            class="ml-4 inline-flex text-white bg-red-600 border-0 py-1 px-4 focus:outline-none hover:bg-red-700 rounded text-sm"
+                            onclick='saveNote()'><i class="fa fa-floppy-o py-1" aria-hidden="true"></i>&nbsp; Save
+                            Note</button>
+                    </div>
+                    <div class="text-center my-2" id="instructions">
+                        Press the <b>Start Recognition</b> button and allow access.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+<section class="text-gray-700 body-font relative" id="mynotes">
+    <div class="container md:px-32 py-16 mx-auto">
+        <div class="text-center mb-8">
+            <h1
+                class="md:text-3xl text-xl font-medium title-font text-gray-900 mb-2 transform hover:scale-105 cursor-pointer">
+                My Notes</h1>
+            <div class="flex mt-6 justify-center">
+                <div class="w-16 h-1 rounded-full bg-red-600 inline-flex"></div>
+            </div>
+        </div>
+        <div class="flex flex-col px-2" style="overflow-x: hidden;">
+            <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                <div
+                    class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th
+                                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                    #
+                                </th>
+                                <th
+                                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                    Date
+                                </th>
+                                <th
+                                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                    Notes
+                                </th>
+                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngIf="notes">
+                                <tr *ngFor="let n of notes| paginate: { itemsPerPage: 5, currentPage: p };let i=index">
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900">{{i+1}}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900" id="date">{{n.date}}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900">{{n.content}}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
+                                        <a class="text-green-600 mx-1 rounded-full p-2 cursor-pointer hover:underline"
+                                            (click)="listen(n.date)">Litsen
+                                            to Note</a>
+                                        <a class="text-red-600  mx-1 rounded-full p-2 cursor-pointer hover:underline"
+                                            (click)="delete(n.date)">Delete</a>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="pt-6 text-right pr-8">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+</section>
