@@ -45,7 +45,7 @@ function read(text) {
 function saveNote() {
     var content = document.getElementById('result').innerHTML;
     var dateTime = new Date().toLocaleString();
-    localStorage.setItem('Note - ' + dateTime, content);
+    localStorage.setItem(dateTime, content);
     read('Note saved successfully')
     location.reload()
 }
