@@ -26,9 +26,8 @@ recognition.onresult = function (event) {
     if (!mobileRepeatBug) {
         text += transcript;
         document.getElementById('result').innerHTML = text;
+        read(transcript);
     }
-
-    read(transcript);
 }
 
 function read(text) {
