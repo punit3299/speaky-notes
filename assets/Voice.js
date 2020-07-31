@@ -24,7 +24,7 @@ recognition.onresult = function (event) {
     var mobileRepeatBug = (event.resultIndex == 1 && transcript == event.results[0][0].transcript);
 
     if (!mobileRepeatBug) {
-        text = text + ' ' + transcript;
+        text = text + transcript + ' ';
         document.getElementById('result').innerHTML = text;
         read(transcript);
     }
