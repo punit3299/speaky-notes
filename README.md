@@ -1,4 +1,4 @@
-Speaky Notes | Speech Recognition Notes App
+## Speaky Notes | Speech Recognition Notes App
 
 Speaky Notes is a web-based application which enable their users to manage and schedule their notes with speech recognition features.
 
