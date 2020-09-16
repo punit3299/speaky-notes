@@ -16,6 +16,9 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+   //read('Welcome to Speaky Notes');
+
     for (let i = 0; i < localStorage.length; i++) {
 
       let date = localStorage.key(i);
